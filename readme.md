@@ -2,6 +2,14 @@
 
 Adds support for honeypot input in Nette Forms.
 
+## What it does
+
+[Article about honeypot input](http://haacked.com/archive/2007/09/11/honeypot-captcha.aspx/)
+
+TLDR; It creates form input, then hides it using CSS or JS. Spam bots usually fill all fields 
+(especially those with yummy names, like 'email' or 'web'). 
+Human will not fill hidden field, so this is a way to detect bot, instead of forcing user to solve captcha.
+
 ## Installation
 
 Best way to install this is using composer:
