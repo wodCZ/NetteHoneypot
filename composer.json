@@ -1,0 +1,17 @@
+{
+  "name": "wodcz/nette-honeypot",
+  "description": "Honeypot extension for Nette Forms",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Martin Janeček",
+      "email": "martin.janecek@polyweb.cz"
+    }
+  ],
+  "require": {
+    "nette/forms": "~2.3"
+  },
+  "autoload": {
+    "classmap": ["src/"]
+  }
+}
