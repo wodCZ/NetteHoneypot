@@ -64,16 +64,16 @@ class Honeypot extends BaseControl
         $container = Html::el('div');
         $container->id = $control->id . "-container";
         $container->class = 'wodcz-nette-forms-hp';
-        $container->add($label);
-        $container->add($control);
+        $container->addHtml($label);
+        $container->addHtml($control);
 
         if ($this->inline) {
             if ($this->mode == self::MODE_JS) {
                 $script = Html::el('script')->setType('text/javascript')->setHtml(file_get_contents($this->jsFile));
-                $container->add($script);
+                $container->addHtml($script);
             } elseif ($this->mode == self::MODE_CSS) {
                 $style = Html::el('style')->setText(file_get_contents($this->cssFile));
-                $container->add($style);
+                $container->addHtml($style);
             }
         }
 
