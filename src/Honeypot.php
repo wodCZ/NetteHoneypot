@@ -1,7 +1,7 @@
 <?php
+declare(strict_types = 1);
 
 namespace wodCZ\NetteHoneypot;
-
 
 use Nette\Forms\Container;
 use Nette\Forms\Controls\BaseControl;
@@ -10,11 +10,13 @@ use Nette\Utils\Html;
 class Honeypot extends BaseControl
 {
 
-    const MODE_CSS = "css";
-    const MODE_JS = "js";
+    public const MODE_CSS = "css";
+    public const MODE_JS = "js";
 
+    /**
+     * @var bool
+     */
     private $inline;
-
     /**
      * @var string
      */
@@ -31,38 +33,48 @@ class Honeypot extends BaseControl
      * @var null|string
      */
     private $message;
-
+    /**
+     * @var array
+     */
     public $onError = [];
 
-    public function __construct($caption = NULL, $message = NULL, $mode = self::MODE_JS, $inline = TRUE)
-    {
+    public function __construct(
+        $caption = null,
+        string $message = null,
+        string $mode = self::MODE_JS,
+        bool $inline = true
+    ) {
         parent::__construct($caption);
 
-        if(is_null($message)){
+        if (is_null($message)) {
             $message = "Please, don't fill this field";
         }
 
         $this->inline = $inline;
 
-        $this->control->type = "text";
+        $this->control->type = 'text';
 
         $this->cssFile = __DIR__ . '/assets/style.css';
         $this->jsFile = __DIR__ . '/assets/script.js';
         $this->mode = $mode;
         $this->message = $message;
 
-        $this->onError[] = function($control){
+        $this->onError[] = function ($control) {
             $control->addError($this->message);
         };
     }
 
-    public function getControl()
+    /**
+     * Generates control's HTML element.
+     * @return Html|string
+     */
+    public function getControl() : Html
     {
         $control = parent::getControl();
         $label = parent::getLabel();
 
         $container = Html::el('div');
-        $container->id = $control->id . "-container";
+        $container->id = $control->id . '-container';
         $container->class = 'wodcz-nette-forms-hp';
         $container->add($label);
         $container->add($control);
@@ -81,27 +93,33 @@ class Honeypot extends BaseControl
         return $container;
     }
 
-    public function getLabel($caption = NULL)
+    /**
+     * Generates label's HTML element - here we dont need label
+     * @param  string|object  $caption
+     * @return Html|string|null
+     */
+    public function getLabel($caption = null) : ?string
     {
         return null;
     }
 
-    public function validate()
+    public function validate() : void
     {
         parent::validate();
 
         $value = $this->getValue();
-        if(!empty($value)){
+        if (!empty($value)) {
             $this->onError($this);
         }
-
     }
 
-
-    public static function register($inline = TRUE)
+    public static function register(bool $inline = true) : void
     {
-        Container::extensionMethod('addHoneypot', function ($container, $name, $caption = NULL, $message = NULL, $mode = self::MODE_JS) use ($inline) {
-            return $container[$name] = new self($caption, $message, $mode, $inline);
-        });
+        Container::extensionMethod(
+            'addHoneypot',
+            static function ($container, $name, $caption = null, $message = null, $mode = self::MODE_JS) use ($inline) {
+                return $container[$name] = new self($caption, $message, $mode, $inline);
+            }
+        );
     }
 }
