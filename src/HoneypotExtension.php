@@ -16,9 +16,8 @@ class HoneypotExtension extends CompilerExtension
     public function afterCompile(ClassType $class) : void
     {
         $config = $this->getConfig($this->defaultConfig);
-        $inline = strtoupper($config['inline']);
 
         $initialize = $class->methods['initialize'];
-        $initialize->addBody('wodCZ\NetteHoneypot\Honeypot::register(?);', [$inline]);
+        $initialize->addBody('wodCZ\NetteHoneypot\Honeypot::register(?);', [$config['inline']]);
     }
 }
