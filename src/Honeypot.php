@@ -73,6 +73,8 @@ class Honeypot extends BaseControl
         $control = parent::getControl();
         $label = parent::getLabel();
 
+        $control->addAttributes(["autocomplete"=>"new-password"]);
+
         $container = Html::el('div');
         $container->id = $control->id . '-container';
         $container->class = 'wodcz-nette-forms-hp';
