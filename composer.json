@@ -3,7 +3,7 @@
   "description": "Honeypot extension for Nette Forms",
   "type": "library",
   "keywords": ["nette", "forms", "honeypot", "antispam", "spam"],
-  "license": "New BSD",
+  "license": "0BSD",
   "authors": [
     {
       "name": "Martin Janeček",
