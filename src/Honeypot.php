@@ -40,7 +40,7 @@ class Honeypot extends BaseControl
 
     public function __construct(
         $caption = null,
-        string $message = null,
+        ?string $message = null,
         string $mode = self::MODE_JS,
         bool $inline = true
     ) {
@@ -97,7 +97,7 @@ class Honeypot extends BaseControl
 
     /**
      * Generates label's HTML element - here we dont need label
-     * @param  string|object  $caption
+     * @param  null|string|object  $caption
      * @return Html|string|null
      */
     public function getLabel($caption = null) : ?string
